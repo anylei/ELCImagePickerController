@@ -27,11 +27,11 @@
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellTapped:)];
         [self addGestureRecognizer:tapRecognizer];
         [tapRecognizer release];
-        
+
         NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithCapacity:4];
         self.imageViewArray = mutableArray;
         [mutableArray release];
-        
+
         NSMutableArray *overlayArray = [[NSMutableArray alloc] initWithCapacity:4];
         self.overlayViewArray = overlayArray;
         [overlayArray release];
@@ -63,7 +63,7 @@
             [_imageViewArray addObject:imageView];
             [imageView release];
         }
-        
+
         if (i < [_overlayViewArray count]) {
             UIImageView *overlayView = [_overlayViewArray objectAtIndex:i];
             overlayView.hidden = asset.selected ? NO : YES;
@@ -82,11 +82,12 @@
 - (void)cellTapped:(UITapGestureRecognizer *)tapRecognizer
 {
     CGPoint point = [tapRecognizer locationInView:self];
-    CGFloat totalWidth = self.rowAssets.count * 75 + (self.rowAssets.count - 1) * 4;
-    CGFloat startX = (self.bounds.size.width - totalWidth) / 2;
-    
+    // CGFloat totalWidth = self.rowAssets.count * 75 + (self.rowAssets.count - 1) * 4;
+    // CGFloat startX = (self.bounds.size.width - totalWidth) / 2;
+    CGFloat startX = 4;
+
 	CGRect frame = CGRectMake(startX, 2, 75, 75);
-	
+
 	for (int i = 0; i < [_rowAssets count]; ++i) {
         if (CGRectContainsPoint(frame, point)) {
             ELCAsset *asset = [_rowAssets objectAtIndex:i];
@@ -100,21 +101,22 @@
 }
 
 - (void)layoutSubviews
-{    
-    CGFloat totalWidth = self.rowAssets.count * 75 + (self.rowAssets.count - 1) * 4;
-    CGFloat startX = (self.bounds.size.width - totalWidth) / 2;
-    
+{
+    // CGFloat totalWidth = self.rowAssets.count * 75 + (self.rowAssets.count - 1) * 4;
+    // CGFloat startX = (self.bounds.size.width - totalWidth) / 2;
+    CGFloat startX = 4;
+
 	CGRect frame = CGRectMake(startX, 2, 75, 75);
-	
+
 	for (int i = 0; i < [_rowAssets count]; ++i) {
 		UIImageView *imageView = [_imageViewArray objectAtIndex:i];
 		[imageView setFrame:frame];
 		[self addSubview:imageView];
-        
+
         UIImageView *overlayView = [_overlayViewArray objectAtIndex:i];
         [overlayView setFrame:frame];
         [self addSubview:overlayView];
-		
+
 		frame.origin.x = frame.origin.x + frame.size.width + 4;
 	}
 }
