@@ -21,6 +21,9 @@
 @synthesize assetGroups = _assetGroups;
 @synthesize library = _library;
 
+@synthesize minimumSelection;
+@synthesize maximumSelection;
+
 #pragma mark -
 #pragma mark View lifecycle
 
@@ -158,6 +161,8 @@
 	
 	ELCAssetTablePicker *picker = [[ELCAssetTablePicker alloc] initWithNibName: nil bundle: nil];
 	picker.parent = self;
+    picker.minimumSelection = minimumSelection;
+    picker.maximumSelection = maximumSelection;
 
     picker.assetGroup = [self.assetGroups objectAtIndex:indexPath.row];
     [picker.assetGroup setAssetsFilter:[ALAssetsFilter allPhotos]];
